@@ -20,7 +20,8 @@ export class TodoItemComponent implements OnInit {
     return classes;
   }
 
-  onToggle(todo) {
+  // dit item
+  onChange(todo) {
     // update ui
     todo.completed = !todo.completed;
     //update api

@@ -14,35 +14,36 @@ const httpOption = {
   providedIn: 'root',
 })
 export class TodoService {
-  // variable
-  limit_var = '?_limit=20';
-  // function
+  // set length of list
   limit_func(length) {
     return `?_limit=${length}`;
   }
-  todosUrl: string = `https://jsonplaceholder.typicode.com/todos`;
+
+  // url of todo list 'API'
+  todoUrl: string = `https://jsonplaceholder.typicode.com/todos`;
+
   constructor(private http: HttpClient) {}
 
-  // get todos
+  // get all todo list
   getTodo(): Observable<Todo[]> {
-    return this.http.get<Todo[]>(`${this.todosUrl}${this.limit_func(20)}`);
+    return this.http.get<Todo[]>(`${this.todoUrl}${this.limit_func(20)}`);
   }
 
-  // toggle completed
+  // edit item completed
   toggleCompleted(todo: Todo): Observable<any> {
-    const url = `${this.todosUrl}/${todo.id}`;
+    const url = `${this.todoUrl}/${todo.id}`;
     return this.http.put(url, todo, httpOption);
   }
 
-  // delete
+  // delete todo
   deleteTodo(todo: Todo) {
-    const url = `${this.todosUrl}/${todo.id}`;
+    const url = `${this.todoUrl}/${todo.id}`;
     return this.http.delete<Todo>(url, httpOption);
   }
 
   // add todo
   addTodo(todo: Todo): Observable<Todo> {
-    const url = this.todosUrl;
+    const url = this.todoUrl;
     return this.http.post<Todo>(url, todo, httpOption);
   }
 }

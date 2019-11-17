@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+// services that handel with api requests
 import { TodoService } from './../../services/todo.service';
-
+// structure of todo object
 import { Todo } from '../../models/Todo';
-import { Todo } from './../../models/Todo';
 
 @Component({
   selector: 'app-todo',
@@ -10,26 +10,30 @@ import { Todo } from './../../models/Todo';
   styleUrls: ['./todo.component.css'],
 })
 export class TodoComponent implements OnInit {
-  todos: Todo[];
+  todoList: Todo[];
   constructor(private todoService: TodoService) {}
 
+  // works as life cycle methods
+
+  // get all items
   ngOnInit() {
-    this.todoService.getTodo().subscribe(todos => {
-      this.todos = todos;
+    this.todoService.getTodo().subscribe(item => {
+      this.todoList = item;
     });
   }
 
-  deleteTodo(todo: Todo) {
-    // console.log('delete me');
+  // remove item
+  deleteTodo(todoArg: Todo) {
     // remove from ui
-    this.todos = this.todos.filter(ele => ele.id !== todo.id);
+    this.todoList = this.todoList.filter(ele => ele.id !== todoArg.id);
     // remove from server
-    this.todoService.deleteTodo(todo).subscribe();
+    this.todoService.deleteTodo(todoArg).subscribe();
   }
 
-  addTodo(todo: Todo) {
-    this.todoService.addTodo(todo).subscribe(todo => {
-      this.todos.push(todo);
+  // add item
+  addTodo(newTodo: Todo) {
+    this.todoService.addTodo(newTodo).subscribe(todo => {
+      this.todoList.push(todo);
     });
   }
 }
