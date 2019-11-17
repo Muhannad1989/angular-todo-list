@@ -15,7 +15,7 @@ export class TodoComponent implements OnInit {
 
   // works as life cycle methods
 
-  // get all items
+  // get all items already in the page
   ngOnInit() {
     this.todoService.getTodo().subscribe(item => {
       this.todoList = item;
